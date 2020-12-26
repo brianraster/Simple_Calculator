@@ -1,11 +1,11 @@
 from tkinter import *
-# loa: 48:39
+
 
 root = Tk()
 root.title('Simple Calculator')
 
-e = Entry(root, width=35, borderwidth=5)
-e.grid(row=0, column=0, columnspan=3, padx=10, pady=10)
+e = Entry(root, width=55, borderwidth=5)
+e.grid(row=0, column=0, columnspan=4, padx=10, pady=10)
 
 # e.insert(0,'Enter your Name: ')
 def buttonClick(num):
@@ -16,13 +16,46 @@ def buttonClick(num):
 def add():
     firstNum = e.get()
     global fNum
+    global math
+    math = 'addition'
+    fNum = int(firstNum)
+    e.delete(0,END)
+
+def subtract():
+    firstNum = e.get()
+    global fNum
+    global math
+    math = 'subtraction'
+    fNum = int(firstNum)
+    e.delete(0,END)
+
+def multiply():
+    firstNum = e.get()
+    global fNum
+    global math
+    math = 'multiplication'
+    fNum = int(firstNum)
+    e.delete(0,END)
+
+def divide():
+    firstNum = e.get()
+    global fNum
+    global math
+    math = 'division'
     fNum = int(firstNum)
     e.delete(0,END)
 
 def equal():
     secNum = e.get()
     e.delete(0,END)
-    e.insert(0, int(fNum) + int(secNum))
+    if math == 'addition':
+        e.insert(0, int(fNum) + int(secNum))
+    elif math == 'subtraction':
+        e.insert(0, int(fNum) - int(secNum))
+    elif math == 'multiplication':
+        e.insert(0, int(fNum) * int(secNum))
+    elif math == 'division':
+        e.insert(0, int(fNum) / int(secNum))
 
 def clear():
     e.delete(0,END)
@@ -38,7 +71,10 @@ button7 = Button(root, text='7', padx=40, pady=20, command=lambda: buttonClick(7
 button8 = Button(root, text='8', padx=40, pady=20, command=lambda: buttonClick(8))
 button9 = Button(root, text='9', padx=40, pady=20, command=lambda: buttonClick(9))
 button0 = Button(root, text='0', padx=40, pady=20, command=lambda: buttonClick(0))
-plusButton = Button(root, text='+', padx=39, pady=20, command=add)
+plusButton = Button(root, text='+', padx=38, pady=20, command=add)
+minusButton = Button(root, text='-', padx=39, pady=20, command=subtract)
+multipyButton = Button(root, text='*', padx=39, pady=20, command=multiply)
+divideButton = Button(root, text='/', padx=39, pady=20, command=divide)
 equalButton = Button(root, text='=', padx=91, pady=20, command=equal)
 clearButton = Button(root, text='Clear', padx=79, pady=20, command=clear)
 
@@ -57,8 +93,12 @@ button9.grid(row=1, column=2)
 
 button0.grid(row=4, column=0)
 clearButton.grid(row=4, column=1, columnspan=2)
-plusButton.grid(row=5, column=0)
 equalButton.grid(row=5, column=1, columnspan=2)
+
+plusButton.grid(row=1, column=3)
+minusButton.grid(row=2, column=3)
+multipyButton.grid(row=3, column=3)
+divideButton.grid(row=4, column=3)
 
 
 root.mainloop()
